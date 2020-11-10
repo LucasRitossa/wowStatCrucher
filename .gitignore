@@ -1,7 +1,3 @@
+.DS_Store
 node_modules
-package-lock.json
-package.json
-public
-scripts
-rollup.config.js
-.eslintrc
+public/bundle.*

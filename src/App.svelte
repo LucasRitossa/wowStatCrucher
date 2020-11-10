@@ -1,32 +1,116 @@
-<div >
-	<button on:click={getInfo}>Get Stats</button>
+
+<body  >
+	<br />
+	<br />
+	<br />
+	<br />
+	
+  <div class="container center">
+  <img src="wowzerz logo.png" alt="WoWSC Logo" width="250" height="250" >
+</div>
+<br />
+  <br />
+  <br />
+
+<div class="container center">
+	<div class="container center">
+		<input placeholder='Search...'  type="text" style="width:100%"> 
+	</div>
+	  
+	
   
-	<p>{posts.name} </p>
-	<p>{posts.race}</p>
-	<p>{posts.class}</p>
+<div class="container " >
+	<!--<button on:click={getInfo}>Get Stats</button>}-->
+  
+	<p class="center" >{posts.race} {posts.class}: {posts.name} </p>
+	
   </div>
-  <label>
-  <input type="checkbox" bind:checked={visible} >
-  visible
-  </label>
-  <div class="container">   
-	  {#if visible}
-	 
-		  <canvas transition:fade id="myChart" width="100" height="50"></canvas>
-  {/if}
-   
-	</div>
-  <div class="container">
-	  <button on:click={createDungeonChart}>Dugeon Stats</button>
-		<canvas id="myNewChart" width="100" height="50"></canvas>
+
+  <div class="container center">
+	<button on:click={myFunction}>Dugeon Stats </button>
+	<button on:click={createLineChart}> Dugeon Stats Line </button>
+	<button on:click={createChart}> Raid Stats </button>
+</div>
+  <div class="container center" style="width:60%">
+	
+  <canvas  id="myChart" ></canvas> 
+  <canvas  id="myNewChart" ></canvas> 
+  <canvas  id="myLineChart"></canvas>
+	
+	
+	  </div> 
+	  
 	</div>
   
+</body>
   <script>
+  import "../node_modules/materialize-css/dist/css/materialize.min.css";
+  import "../node_modules/materialize-css/dist/js/materialize.min.js";
   import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
+
   let visible = true;
+  function myFunction() {
+	createDungeonChart();
+  var x = document.getElementById("myNewChart");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+  function createLineChart() {
+	  //options
+	var options = {
+	  responsive: true,
+	  title: {
+		display: true,
+		position: "top",
+		text: "Line Graph",
+		fontSize: 18,
+		fontColor: "#ffff"
+	  },
+	  legend: {
+		display: true,
+		position: "bottom",
+		labels: {
+		  fontColor: "#ffff",
+		  fontSize: 16
+		}
+	  }
+	};
+  var ctx = document.getElementById('myLineChart');
+  var myLineChart = new Chart(ctx, {
+	  type: 'line',
+	  data:{
+	  labels: ["match1", "match2", "match3", "match4", "match5"],
+	  datasets: [
+		{
+		  label: "TeamA Score",
+		  data: [10, 50, 25, 70, 40],
+		  borderColor: 'rgba(192, 192, 192, 1)',
+		  backgroundColor: 'rgba(192, 192, 192, 0.2)',
+		  fill: true,
+		  lineTension: .3,
+		  radius: 5
+		},
+		{
+		  label: "TeamB Score",
+		  data: [20, 35, 40, 60, 50],
+		  borderColor: 'rgba(75, 192, 192, 1)',
+		  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+		  fill: true,
+		  lineTension: .3,
+		  radius: 5
+		}
+	  ]
+	  },
+	  options:options
+	});
+  }
+	
   
-   
+	
+  
 	function createChart() {
   
   var ctx = document.getElementById('myChart');
@@ -41,7 +125,7 @@
 				  'rgba(255, 99, 132, 0.33)',
 				  'rgba(54, 162, 235, 0.33)',
 				  'rgba(255, 206, 86, 0.33)',
-				  
+				   
 			  ],
 			  borderColor: [
 				  'rgba(255, 99, 132, 1)',
@@ -106,6 +190,10 @@
 		 const res= await fetch("https://raider.io/api/v1/characters/profile?region=us&realm=area52&name=jmd&fields=mythic_plus_best_runs%3Aall");
 		 posts = await res.json();
    });
-   onMount(createChart);
-  
+  // onMount(createDungeonChart);
+   onMount(getInfo);
   </script>
+  
+  
+  
+   

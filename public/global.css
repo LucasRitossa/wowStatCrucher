@@ -1,0 +1,14 @@
+p{
+    color:#ffffff;
+    font-size: 25px;
+}
+input{
+    color:#ffffff;
+}
+html, 
+body, 
+#background { 
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+}
